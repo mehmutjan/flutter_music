@@ -1,0 +1,14 @@
+{
+  "appTitle": "Music App",
+  "@appTitle": {
+    "description": "Label for the App tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeAppBarTitle": "Music Demo",
+    "@homeAppBarTitle": {
+      "description": "",
+      "type": "text",
+      "placeholders": {}
+    }
+}

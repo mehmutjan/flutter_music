@@ -1,0 +1,15 @@
+{
+  "@@last_modified": "2018-12-21T17:59:39.114122",
+  "appTitle": "Music App",
+  "@appTitle": {
+    "description": "Label for the App tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeAppBarTitle": "Music Demo",
+  "@homeAppBarTitle": {
+    "description": "",
+    "type": "text",
+    "placeholders": {}
+  }
+}

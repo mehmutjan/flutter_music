@@ -1,0 +1,14 @@
+{
+  "appTitle": "音乐",
+  "@appTitle": {
+    "description": "应用程序名称",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeAppBarTitle": "音乐实例",
+  "@homeAppBarTitle": {
+    "description": "",
+    "type": "text",
+    "placeholders": {}
+  }
+}
