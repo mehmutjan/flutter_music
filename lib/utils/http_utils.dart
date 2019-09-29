@@ -43,16 +43,17 @@ class HttpUtils {
     };
     Map<String, String> body = {
       'params':
-          's105dNjQFY2vxMTiywQ6RQHrTghmXaTRQZ/H+Q+DVGoVf1WrcGNsHL3sw0EG37+HvgPpzKFxYMHOkXsodwziPj90QsGgGS1sxCJtPgcseWmzE8KbMVaHh9+BOpVD7L4q/0SayIO+jC3Ed2Cjix5TBBWKkhzlECnYnq6qtA7NIt5OBEcylFQbC31EzFKE0KvVrhx+0NttLtQSiDDM2dpZA1V91rMTH/SZbfj+r46D3k8Q=',
+          's05dNjQFY2vxMTiywQ6RQHrTghmXaTRQZ/H+Q+DVGoVf1WrcGNsHL3sw0EG37+HvgPpzKFxYMHOkXsodwziPj90QsGgGS1sxCJtPgcseWmzE8KbMVaHh9+BOpVD7L4q/0SayIO+jC3Ed2Cjix5TBBWKkhzlECnYnq6qtA7NIt5OBEcylFQbC31EzFKE0KvVrhx+0NttLtQSiDDM2dpZA1V91rMTH/SZbfj+r46D3k8Q=',
       'encSecKey':
-          '1534953b76fd0dd61a2de19dd5bc18fbf57f7c9143140b4f984a766a0b71b16dec0e4daa6c11bb151cdf9f0b7dc2a7c1fc7a34f9dda96cfb463bca9eb4b09b923a369906cffc3f6fc503e4f5f107e7a92df52ac140ea7e5cdebb11ffcb717d16bef3912498e515c247d53ef6de4c104821fb9f0db59b4d26ebbb6578cb78dc4fd',
+          '534953b76fd0dd61a2de19dd5bc18fbf57f7c9143140b4f984a766a0b71b16dec0e4daa6c11bb151cdf9f0b7dc2a7c1fc7a34f9dda96cfb463bca9eb4b09b923a369906cffc3f6fc503e4f5f107e7a92df52ac140ea7e5cdebb11ffcb717d16bef3912498e515c247d53ef6de4c104821fb9f0db59b4d26ebbb6578cb78dc4fd',
     };
     http.Client httpClient = new http.Client();
     await httpClient
-        .post(Api.PLAY_LIST_DETAIL, body: body, headers: headers, encoding: Encoding.getByName('utf-8'))
+        .post(Api.PLAY_LIST_DETAIL,
+            body: body, headers: headers, encoding: Encoding.getByName('utf-8'))
         .whenComplete(() {
-          httpClient.close();
-        }).then((http.Response r) {
+      httpClient.close();
+    }).then((http.Response r) {
       playList = PlayList.fromJson(json.decode(r.body));
     });
     return playList;
@@ -63,9 +64,7 @@ class HttpUtils {
     String strIds = parseUriIds(ids);
     String url = Api.SONG_DETAIL + "?ids=$strIds";
     http.Client httpClient = new http.Client();
-    await httpClient
-        .get(url)
-        .whenComplete(() {
+    await httpClient.get(url).whenComplete(() {
       httpClient.close();
     }).then((http.Response r) {
       Map<String, dynamic> lists = json.decode(r.body);
@@ -82,9 +81,7 @@ class HttpUtils {
     String strIds = parseUriIds(ids);
     String url = Api.SONG_URL + "?ids=$strIds&br=999000";
     http.Client httpClient = new http.Client();
-    await httpClient
-        .get(url)
-        .whenComplete(() {
+    await httpClient.get(url).whenComplete(() {
       httpClient.close();
     }).then((http.Response r) {
       Map<String, dynamic> lists = json.decode(r.body);
@@ -115,7 +112,7 @@ class HttpUtils {
     ids.forEach((id) {
       str += "${id.id},";
     });
-    str = str.substring(0, str.length -2);
+    str = str.substring(0, str.length - 2);
     return str + "]";
   }
 }

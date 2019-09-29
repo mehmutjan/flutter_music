@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Account extends StatefulWidget {
   Account({Key key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _AccountState();
@@ -19,14 +20,13 @@ class _AccountState extends State<Account> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Scaffold(
       appBar: new AppBar(
         centerTitle: true,
-        title: Text('acount'),
+        title: Text('我'),
       ),
       body: new Center(
-        child: Text('"account"'),
+        child: Text('此页面一片空白'),
       ),
     );
   }

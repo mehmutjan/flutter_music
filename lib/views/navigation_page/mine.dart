@@ -3,6 +3,7 @@ import 'package:my_music/i18n/music_strings.dart';
 
 class Mine extends StatefulWidget {
   Mine({Key key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _MineState();
@@ -12,7 +13,6 @@ class Mine extends StatefulWidget {
 class _MineState extends State<Mine> {
   int _selectedIndex = 1;
 
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -21,14 +21,13 @@ class _MineState extends State<Mine> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Scaffold(
       appBar: new AppBar(
         centerTitle: true,
         title: new Text(MusicStrings.of(context).homeAppBarTitle()),
       ),
       body: new Center(
-        child: Text('"mine"'),
+        child: Text('此页面一片空白'),
       ),
     );
   }

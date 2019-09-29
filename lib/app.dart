@@ -21,7 +21,7 @@ class _MusicLocalizationsDelegate extends LocalizationsDelegate<MusicStrings> {
 }
 
 class MusicApp extends StatefulWidget {
-  MusicApp({Key key}) : super(key : key);
+  MusicApp({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -30,7 +30,6 @@ class MusicApp extends StatefulWidget {
 }
 
 class _MusicAppState extends State<MusicApp> {
-
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(

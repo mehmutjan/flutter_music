@@ -3,7 +3,7 @@ import 'package:audioplayers/audioplayers.dart';
 enum PlayerState { stopped, playing, paused }
 
 class Songs {
-  static List<Song> songs;
+  static List<Song> songs = List();
   static Song song; // current playing song
   static int index; // current playing song index
 //  static MusicFinder player = new MusicFinder();

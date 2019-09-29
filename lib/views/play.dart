@@ -15,9 +15,14 @@ class PlayMusic extends StatefulWidget {
   }
 }
 
-class _PlayMusicState extends State<PlayMusic> {
+class _PlayMusicState extends State<PlayMusic>
+    with AutomaticKeepAliveClientMixin {
+  GlobalKey<ScaffoldState> scaffoldState = new GlobalKey();
+
   String url;
   bool isLocal = false;
+  bool isNext = false;
+  bool isPrevious = false;
   AudioPlayer _audioPlayer;
   Duration _duration;
   Duration _position;
@@ -27,9 +32,9 @@ class _PlayMusicState extends State<PlayMusic> {
 
   get _isPaused => Songs.playerState == PlayerState.paused;
 
-  get _durationText => _duration?.toString()?.split('.')?.first ?? '';
+  get _durationText => _duration?.toString()?.split('.')?.first ?? '0:00:00';
 
-  get _positionText => _position?.toString()?.split('.')?.first ?? '';
+  get _positionText => _position?.toString()?.split('.')?.first ?? '0:00:00';
 
   @override
   void initState() {
@@ -73,7 +78,20 @@ class _PlayMusicState extends State<PlayMusic> {
   }
 
   Future<int> _play() async {
-    final result = await _audioPlayer.play(url, isLocal: isLocal);
+    if (Songs.songs[_index]?.uri == null) {
+      scaffoldState.currentState?.showSnackBar(new SnackBar(
+          content:
+              Text("《${Songs.songs[_index]?.name}》 music cannot play!!!")));
+      if (isNext) {
+        _skipNext();
+      }
+      if (isPrevious) {
+        _skipPrevious();
+      }
+      return 0;
+    }
+    final result = await _audioPlayer.play(Songs.songs[_index]?.uri ?? '',
+        isLocal: isLocal, stayAwake: true);
     if (result == 1) setState(() => Songs.playerState = PlayerState.playing);
     return result;
   }
@@ -95,7 +113,9 @@ class _PlayMusicState extends State<PlayMusic> {
     return result;
   }
 
-  _skipPrevious() {
+  _skipPrevious() async {
+    isNext = false;
+    isPrevious = true;
     _stop();
     setState(() {
       if (_index == 0) {
@@ -109,7 +129,9 @@ class _PlayMusicState extends State<PlayMusic> {
     });
   }
 
-  _skipNext() {
+  _skipNext() async {
+    isNext = true;
+    isPrevious = false;
     _stop();
     setState(() {
       if (_index == Songs.songs.length - 1) {
@@ -125,10 +147,13 @@ class _PlayMusicState extends State<PlayMusic> {
 
   void _onComplete() {
     setState(() => Songs.playerState = PlayerState.stopped);
+    _skipNext();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -138,6 +163,7 @@ class _PlayMusicState extends State<PlayMusic> {
       child: Container(
         color: Color(0xF571777D),
         child: Scaffold(
+          key: scaffoldState,
           backgroundColor: Colors.transparent,
           body: Column(
             children: <Widget>[
@@ -184,12 +210,14 @@ class _PlayMusicState extends State<PlayMusic> {
               Padding(
                 padding: EdgeInsets.only(top: 50.0),
                 child: ListTile(
-                  leading: Text(
-                    _position != null
-                        ? '${_positionText ?? ''}'
-                        : _duration != null ? _durationText : '',
-                    style: new TextStyle(fontSize: 12.0),
-                  ),
+                  leading: Padding(
+                      padding: EdgeInsets.only(top: 5.0),
+                      child: Text(
+                        _position != null
+                            ? '${_positionText ?? ''}'
+                            : _duration != null ? _durationText : '',
+                        style: new TextStyle(fontSize: 12.0),
+                      )),
                   title: new Stack(
                     children: <Widget>[
                       LinearProgressIndicator(
@@ -263,4 +291,8 @@ class _PlayMusicState extends State<PlayMusic> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
